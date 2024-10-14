@@ -61,7 +61,7 @@ function App() {
      	</select>
    	</div>
 
-      <div><button type="submit">Create Note</button></div>
+      <div className="submitButton"><button type="submit">Create Note</button></div>
      </form>
      <div className="notes-grid">
     	{notes.map((note) => (
