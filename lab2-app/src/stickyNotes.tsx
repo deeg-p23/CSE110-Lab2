@@ -2,11 +2,22 @@ import './App.css';
 import { Label, Note } from "./types"; // Import the Label type from the appropriate module
 import { dummyNotesList } from "./constants"; // Import the dummyNotesList from the appropriate module
 import { useState, useEffect } from "react"
+import { createTextChangeRange } from 'typescript';
 
 function deleteNote(note: Note, note_list: typeof dummyNotesList) {
   var new_notes = note_list.filter((given) => given.id != note.id)
   return new_notes
 }
+
+/*
+function updateNote(note: Note, note_list: typeof dummyNotesList, createNote: Note, setCreateNote: React.Dispatch<React.SetStateAction<Note>>, createNoteHandler) {
+  setCreateNote({ ...createNote, title: note.title })
+  setCreateNote({ ...createNote, content: note.content})
+  setCreateNote({ ...createNote, label: Label[note.label as keyof typeof Label]})}
+
+  createNoteHandler()
+}
+  */
 
 export const StickyNotes = () => {
   const [notes, setNotes] = useState(dummyNotesList); 
@@ -21,6 +32,7 @@ export const StickyNotes = () => {
   const [createNote, setCreateNote] = useState(initialNote);
   
   const createNoteHandler = (event: React.FormEvent) => {
+      console.log("HELP")
      event.preventDefault();
      console.log("title: ", createNote.title);
      console.log("content: ", createNote.content);
@@ -35,7 +47,7 @@ export const StickyNotes = () => {
     } else {
       setFavorites([...favorites, note.title]);
     }
-    }
+  }
   
   useEffect(() => {
     console.log("Favorites updated:", favorites);
@@ -88,16 +100,17 @@ export const StickyNotes = () => {
 
      <div className="notes-grid">
     	{notes.map((note) => (
-      	<div key={note.id} className="note-item">
+      	<div key={note.id} className="note-item" data-testid="note">
         	<div className="notes-header">
           	<button onClick={() => toggleFavorite(note)}>
               {favorites.includes(note.title) ? "❤️" : "♡"}
             </button>
             <button onClick={() => setNotes(deleteNote(note, notes))}>x</button>
         	</div>
-        	<h2> {note.title} </h2>
-        	<p> {note.content} </p>
-        	<p> {note.label} </p>
+        	<h2 contentEditable="true" onChange={(event) => 
+            createNoteHandler}> {note.title} </h2>
+        	<p contentEditable="true"> {note.content} </p>
+        	<p contentEditable="true"> {note.label} </p>
       	</div>
     	))}
   	</div>

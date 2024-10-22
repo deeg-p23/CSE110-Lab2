@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 export function ToDoList() {
  const { name } = useParams(); 
+ console.log(name);
  const [numRemainingItems, setNumRemainingItems] = useState(0);
 
  let [items, setItems] = useState(dummyGroceryList);
