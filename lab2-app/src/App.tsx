@@ -5,7 +5,7 @@ import { StickyNotes } from "./stickyNotes";
 import { Navbar } from "./navbar";
 
 export const App = () => {
- return (
+ return ( 
    <div>
      <Navbar />
      <Routes>

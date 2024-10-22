@@ -6,9 +6,10 @@ import { dummyGroceryList } from "./constants";
 import { useParams } from "react-router-dom";
 
 export function ToDoList() {
- const { name } = useParams(); 
+  const { name } = useParams();
  console.log(name);
  const [numRemainingItems, setNumRemainingItems] = useState(0);
+ 
 
  let [items, setItems] = useState(dummyGroceryList);
 
@@ -35,6 +36,7 @@ export function ToDoList() {
  return (
    <div className="App">
      <div className="App-body">
+     <h1>{name}'s To Do List</h1>
        Items bought: {numRemainingItems}
        <form action=".">
          {items.map((item) => ListItem(item, handleCheckboxClick))}
